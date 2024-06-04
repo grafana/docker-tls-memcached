@@ -1,4 +1,4 @@
-FROM memcached:1.6.6
+FROM memcached:latest
 
 LABEL description="This image is built for TLS testing purposes."
 
