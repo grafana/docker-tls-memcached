@@ -1,30 +1,28 @@
-# Quick reference
+# How to build the image
 
- - **Maintained by**:
-    [Moisés Guimarães](https://github.com/moisesguimaraes)
+1- Clone the repo
 
- - **Where to get help or file issues**:
-    https://github.com/scoriacorp/docker-tls-memcached/issues
-
-# How to use this image
-
-This image runs a Memcached server with TLS enabled, so it will only accept TLS requests.
-
-The server's certificate Common Name (CN) is `*.localhost`, so you must use localhost:11211 when connecting to it and for now you must bind port 11211 to the host machine.
-
-```shell
-$ docker run -p 11211:11211 scoriacorp/tls_memcached
+``` bash
+git clone git@github.com:grafana/docker-tls-memcached.git
 ```
 
-The CA certificate can be extracted with:
+2- Go to the `certs` folder, clean and regenerate the certs
 
-```shell
-$ docker run --rm scoriacorp/tls_memcached cat /opt/certs/crt/ca-root.crt
+``` bash
+cd docker-tls-memcached/certs
+make clean 
+make all
 ```
 
-For client side authentication, trusted client credentials can be found at:
+3- Go back to the project root folder and build a docker image
 
-```shell
-$ docker run --rm scoriacorp/tls_memcached cat /opt/certs/key/client.key
-$ docker run --rm scoriacorp/tls_memcached cat /opt/certs/crt/client.crt
+``` bash
+cd ..
+docker build . -t memcached-tls-local -f ./debian/Dockerfile
+```
+
+4- Run memcached with the newly created image. You can add `-vv` at the end of it for detailed logs
+
+``` bash
+docker run -p 11211:11211 memcached-tls-local 
 ```
