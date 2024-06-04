@@ -27,7 +27,7 @@ docker build . -t memcached-tls-local -f ./debian/Dockerfile
 docker run -p 11211:11211 memcached-tls-local 
 ```
 
-# Configure Grafana
+## Configure Grafana
 
 Run Grafana Enterprise with the following configuration in the `config.ini` file. Change `{PROJECT_FOLDER}` to the root folder location of the `docker-tls-memcached` project.
 
