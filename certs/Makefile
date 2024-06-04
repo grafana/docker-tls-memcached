@@ -18,7 +18,9 @@ DEFAULT_CA_SIGN = 3650 $(DEFAULT_HASH) req_v3_ca
 DEFAULT_server_SIGN = $(DEFAULT_DAYS) $(DEFAULT_HASH) req_v3_usr
 
 .PHONY: all
-all: chains
+all: 
+	make chains
+	chmod +r gen/key/*
 
 .PHONY: clean
 clean:
